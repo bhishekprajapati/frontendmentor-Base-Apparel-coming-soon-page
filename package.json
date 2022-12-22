@@ -1,15 +1,9 @@
 {
-  "dependencies": {
-    "sass": "^1.57.1"
-  },
   "name": "base-apparel-coming-soon-master",
   "description": "![Design preview for the Base Apparel coming soon page coding challenge](./design/desktop-preview.jpg)",
   "version": "1.0.0",
   "main": "index.js",
-  "devDependencies": {},
-  "scripts": {
-    "sass:build": "sass scss/main.scss dist/main.css -w"
-  },
+  "scripts": {},
   "author": "",
   "license": "ISC"
 }
