@@ -3,7 +3,12 @@
   "description": "![Design preview for the Base Apparel coming soon page coding challenge](./design/desktop-preview.jpg)",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "tailwindcss:build": "npx tailwindcss -i ./src/main.css -o ./dist/main.css --watch"
+  },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "tailwindcss": "^3.2.4"
+  }
 }
