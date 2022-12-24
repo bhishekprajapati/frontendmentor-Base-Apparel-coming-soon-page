@@ -31,64 +31,70 @@
          </picture>
         </figure>
       </div>
-      <div class="md:w-3/5 text-center md:text-left px-8 md:px-[12%] pt-10">
-        <nav class="hidden md:block">
-          <figure class="p-6 md:pl-0">
-            <img class="w-2/5 md:w-[30%]" src="./images/logo.svg" alt="site-logo">
-          </figure>
-        </nav>
+      <div class="relative md:w-3/5 text-center md:text-left px-8 md:px-[12%] pt-10">
+        <div class="relative z-10">
+          <nav class="hidden md:block">
+            <figure class="p-6 md:pl-0">
+              <img class="w-2/5 md:w-[30%]" src="./images/logo.svg" alt="site-logo">
+            </figure>
+          </nav>
+  
+          <div class="mt-10">
+            <h1 class="text-4xl md:text-6xl uppercase tracking-[0.25em]">
+              <span class="text-beige font-light">We're</span>
+              <br>
+              <span class="text-dark">coming</span>
+              <br>
+              <span class="text-dark">soon</span>
+            </h1>
+          
+            <div class="mt-4">
+              <p class="text-beige text-lg">
+                Hello fellow shoppers! We're currently building our new fashion store. 
+                Add your email below to stay up-to-date with announcements and our launch deals.
+              </p>
+            </div>
+          
+            <div class="mt-6 md:mt-8">
+              <form class="flex gap-x-4 justify-between items-center border border-2 rounded-full" id="emailForm">
+                <div class="flex-[0.70]">
+                  <input 
+                    class="w-full p-4 px-6 focus:outline-none rounded-full" 
+                    type="email" 
+                    name="emailAddress" 
+                    id="email" 
+                    placeholder="Email Address"
+                  />
+                </div>
+                <div class="flex-[0.05]">
+                  <img class="invalid-input-icon hidden" src="./images/icon-error.svg" alt="">
+                </div>
+                <div class="flex-[0.25]">
+                  <button
+                    id="submit-email" 
+                    type="submit"
+                    class="p-5 w-full text-center rounded-full 
+                          bg-gradient-to-r from-lightSalmon to-lightCoral
+                          hover:opacity-70 
+                          shadow-md shadow-lightSalmon hover:shadow-xl hover:shadow-lightSalmon
+                          transition-opacity transition-shadow duration-500
+                        ">
+                    <img class="mx-auto" src="./images/icon-arrow.svg" alt="">
+                  </button>
+                </div>
+              </form>
+              <div class="input-error-message hidden pl-6 pt-2">
+                <span class="text-red-800">Please provide a vaild email!</span>
+              </div>
+              <div class="input-success-message hidden pl-6 pt-2">
+                <span class="text-lightCoral">We've successfully received your email!</span>
+              </div>
+            </div>
+          </div>
+        </div>
 
-        <div class="mt-10">
-          <h1 class="text-4xl md:text-6xl uppercase tracking-[0.25em]">
-            <span class="text-beige font-light">We're</span>
-            <br>
-            <span class="text-dark">coming</span>
-            <br>
-            <span class="text-dark">soon</span>
-          </h1>
-        
-          <div class="mt-4">
-            <p class="text-beige text-lg">
-              Hello fellow shoppers! We're currently building our new fashion store. 
-              Add your email below to stay up-to-date with announcements and our launch deals.
-            </p>
-          </div>
-        
-          <div class="mt-6 md:mt-8">
-            <form class="flex gap-x-4 justify-between items-center border border-2 rounded-full" id="emailForm">
-              <div class="flex-[0.70]">
-                <input 
-                  class="w-full p-4 px-6 focus:outline-none rounded-full" 
-                  type="email" 
-                  name="emailAddress" 
-                  id="email" 
-                  placeholder="Email Address"
-                />
-              </div>
-              <div class="flex-[0.05]">
-                <img class="invalid-input-icon hidden" src="./images/icon-error.svg" alt="">
-              </div>
-              <div class="flex-[0.25]">
-                <button
-                  id="submit-email" 
-                  type="submit"
-                  class="p-5 w-full text-center rounded-full 
-                        bg-gradient-to-r from-lightSalmon to-lightCoral
-                        hover:opacity-70 
-                        shadow-md shadow-lightSalmon hover:shadow-xl hover:shadow-lightSalmon
-                        transition-opacity transition-shadow duration-500
-                      ">
-                  <img class="mx-auto" src="./images/icon-arrow.svg" alt="">
-                </button>
-              </div>
-            </form>
-            <div class="input-error-message hidden pl-6 pt-2">
-              <span class="text-red-800">Please provide a vaild email!</span>
-            </div>
-            <div class="input-success-message hidden pl-6 pt-2">
-              <span class="text-lightCoral">We've successfully received your email!</span>
-            </div>
-          </div>
+        <div class="absolute z-0 top-0 right-0 bottom-0 left-0">
+          <img class="w-full h-full" src="./images/bg-pattern-desktop.svg" alt="background-pattern-img">
         </div>
       </div>
     </div>
@@ -115,15 +121,15 @@
       return input ? true: false;
     }
 
-    function emailFormHandler(event, showFeedback, isInputValid) {
+    function emailFormHandler(event, form, showFeedback, isInputValid) {
       event.preventDefault();
-      resetFormFeedback(emailForm)([formFeedbackTypes.success, formFeedbackTypes.error]);
+      resetFormFeedback(form)([formFeedbackTypes.success, formFeedbackTypes.error]);
       if (showFeedback && !isInputValid) {
-        setFormFeedback(emailForm)(formFeedbackTypes.error);
+        setFormFeedback(form)(formFeedbackTypes.error);
       }
 
       if (event.type === 'submit' && showFeedback && isInputValid) {
-        setFormFeedback(emailForm)(formFeedbackTypes.success);
+        setFormFeedback(form)(formFeedbackTypes.success);
       }
     }
     
@@ -131,8 +137,8 @@
     const emailField = emailForm.querySelector('input[type="email"]');
     const submitEmailBttn = document.getElementById('submit-email');
     
-    emailField.addEventListener('input', e => emailFormHandler(e, canShowFeedback(emailField.value), isValidEmail(emailField.value)));
-    emailForm.addEventListener('submit', e => emailFormHandler(e, canShowFeedback(emailField.value), isValidEmail(emailField.value)));
+    emailField.addEventListener('input', e => emailFormHandler(e, emailForm, canShowFeedback(emailField.value), isValidEmail(emailField.value)));
+    emailForm.addEventListener('submit', e => emailFormHandler(e, emailForm, canShowFeedback(emailField.value), isValidEmail(emailField.value)));
 
     console.log(emailForm);
   </script>
