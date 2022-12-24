@@ -4,15 +4,137 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="dist/main.css">
   <title>Frontend Mentor | Base Apparel coming soon page</title>
 </head>
-<body>
+<body class="2xl:container 2xl:mx-auto">
+  <header class="md:hidden">
+    <nav>
+      <figure class="p-6">
+        <img class="w-2/5" src="./images/logo.svg" alt="site-logo">
+      </figure>
+    </nav>
+  </header>
+  <main>
+    <div class="md:h-screen 2xl:max-h-[50rem] md:flex md:flex-row-reverse">
+      <div class="md:w-2/5">
+        <figure class="h-full">
+          <picture>
+            <source 
+               media="(min-width: 465px)"
+               srcset="./images/hero-desktop.jpg">
+               <img class="w-full h-full object-cover" src="./images/hero-mobile.jpg" alt="hero-image">
+         </picture>
+        </figure>
+      </div>
+      <div class="md:w-3/5 text-center md:text-left px-8 md:px-[12%] pt-10">
+        <nav class="hidden md:block">
+          <figure class="p-6 md:pl-0">
+            <img class="w-2/5 md:w-[30%]" src="./images/logo.svg" alt="site-logo">
+          </figure>
+        </nav>
 
-  We're coming soon
+        <div class="mt-10">
+          <h1 class="text-4xl md:text-6xl uppercase tracking-[0.25em]">
+            <span class="text-beige font-light">We're</span>
+            <br>
+            <span class="text-dark">coming</span>
+            <br>
+            <span class="text-dark">soon</span>
+          </h1>
+        
+          <div class="mt-4">
+            <p class="text-beige text-lg">
+              Hello fellow shoppers! We're currently building our new fashion store. 
+              Add your email below to stay up-to-date with announcements and our launch deals.
+            </p>
+          </div>
+        
+          <div class="mt-6 md:mt-8">
+            <form class="flex gap-x-4 justify-between items-center border border-2 rounded-full" id="emailForm">
+              <div class="flex-[0.70]">
+                <input 
+                  class="w-full p-4 px-6 focus:outline-none rounded-full" 
+                  type="email" 
+                  name="emailAddress" 
+                  id="email" 
+                  placeholder="Email Address"
+                />
+              </div>
+              <div class="flex-[0.05]">
+                <img class="invalid-input-icon hidden" src="./images/icon-error.svg" alt="">
+              </div>
+              <div class="flex-[0.25]">
+                <button
+                  id="submit-email" 
+                  type="submit"
+                  class="p-5 w-full text-center rounded-full 
+                        bg-gradient-to-r from-lightSalmon to-lightCoral
+                        hover:opacity-70 
+                        shadow-md shadow-lightSalmon hover:shadow-xl hover:shadow-lightSalmon
+                        transition-opacity transition-shadow duration-500
+                      ">
+                  <img class="mx-auto" src="./images/icon-arrow.svg" alt="">
+                </button>
+              </div>
+            </form>
+            <div class="input-error-message hidden pl-6 pt-2">
+              <span class="text-red-800">Please provide a vaild email!</span>
+            </div>
+            <div class="input-success-message hidden pl-6 pt-2">
+              <span class="text-lightCoral">We've successfully received your email!</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script>
+    const formFeedbackTypes = {
+      success: 'input-success',
+      error: 'input-error',
+    };
+    
+    function isValidEmail(email) {
+      return String(email).search(/^\s*[\w\-\+_]+(\.[\w\-\+_]+)*\@[\w\-\+_]+\.[\w\-\+_]+(\.[\w\-\+_]+)*\s*$/) != -1;
+    }
+    
+    function resetFormFeedback(form) {
+      return feedbackTypes => feedbackTypes.forEach(feedbackType => form.classList.remove(feedbackType));
+    }
 
-  Hello fellow shoppers! We're currently building our new fashion store. 
-  Add your email below to stay up-to-date with announcements and our launch deals.
+    function setFormFeedback(form) {
+      return feedbackType => form.classList.add(feedbackType);
+    }
 
-  Email Address
+    function canShowFeedback(input) {
+      return input ? true: false;
+    }
+
+    function emailFormHandler(event, showFeedback, isInputValid) {
+      event.preventDefault();
+      resetFormFeedback(emailForm)([formFeedbackTypes.success, formFeedbackTypes.error]);
+      if (showFeedback && !isInputValid) {
+        setFormFeedback(emailForm)(formFeedbackTypes.error);
+      }
+
+      if (event.type === 'submit' && showFeedback && isInputValid) {
+        setFormFeedback(emailForm)(formFeedbackTypes.success);
+      }
+    }
+    
+    const emailForm = document.getElementById('emailForm');
+    const emailField = emailForm.querySelector('input[type="email"]');
+    const submitEmailBttn = document.getElementById('submit-email');
+    
+    emailField.addEventListener('input', e => emailFormHandler(e, canShowFeedback(emailField.value), isValidEmail(emailField.value)));
+    emailForm.addEventListener('submit', e => emailFormHandler(e, canShowFeedback(emailField.value), isValidEmail(emailField.value)));
+
+    console.log(emailForm);
+  </script>
 </body>
 </html>

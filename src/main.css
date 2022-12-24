@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer  components {
+    .input-success ~ .input-success-message {
+        display: block;
+    }
+
+    .input-error + .input-error-message {
+        display: block;
+    }
+
+    .input-error .invalid-input-icon {
+        display: block;
+    }
+}
